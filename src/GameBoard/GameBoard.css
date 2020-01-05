@@ -1,0 +1,19 @@
+.gameboard {
+  background-color: yellow;
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+.gameboard-target {
+  background: green;
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.gameboard-board {
+  background: red;
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}

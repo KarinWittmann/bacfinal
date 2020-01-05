@@ -1,0 +1,64 @@
+.slider {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 0.5%;
+  padding-bottom: 1%;
+  height: 50vh;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: all 0.5s ease-in-out;
+}
+
+.slider-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.slide {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  background-color: #ead3c9;
+}
+
+.arrow {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+
+  color: black;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform ease-in 0.1s;
+}
+
+.nextArrow {
+  position: absolute;
+  top: 50%;
+  right: 25px;
+  z-index: 999;
+}
+
+.slider svg {
+  font-size: 2rem;
+  color: #685353;
+}
+
+.backArrow {
+  position: absolute;
+  top: 50%;
+  left: 25px;
+  z-index: 999;
+  color: black;
+  background-image: url(../assets/Left.jpg);
+}
+
+.fa-arrow-right:before,
+.fa-arrow-left:before {
+  color: #222;
+}

@@ -1,0 +1,12 @@
+.Panel {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+}
+
+.Oben {
+  background: #ccc;
+  height: 50vh;
+  width: 100vw;
+  padding-top: 2.5rem;
+}

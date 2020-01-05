@@ -1,0 +1,43 @@
+.Wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.Wrapper .profile {
+  height: 200px;
+  width: 150px;
+  margin: 1rem 0.5rem;
+  display: block;
+}
+.Wrapper .profile:hover {
+  transform: scale(1.05);
+  transition: all 0.2s;
+}
+.Wrapper .profile .desc {
+  position: relative;
+  top: -44px;
+  left: 42px;
+  color: white;
+  background: #333333b5;
+  padding: 0.5rem 1rem;
+}
+
+.Wrapper .profile img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border: 1px transparent;
+  border-radius: 8px;
+}
+.Wrapper .profile .plus {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../assets/new.png");
+  background-size: cover;
+  font-size: 1rem;
+  border: 1px transparent;
+  border-radius: 8px;
+}

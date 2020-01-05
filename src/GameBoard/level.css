@@ -1,0 +1,10 @@
+.gameboard {
+  background-color: yellow;
+}
+.gameboard-target {
+  background: green;
+}
+
+.gameboard-board {
+  background: red;
+}

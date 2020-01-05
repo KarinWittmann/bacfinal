@@ -1,0 +1,28 @@
+.navbar {
+  background-color: #443c3c;
+  line-height: 2rem;
+  overflow: hidden;
+  width: 100%;
+  border: 1px solid transparent;
+}
+
+.nav0 {
+  color: #ccc;
+  text-align: right;
+  font-weight: 100;
+  text-align: right;
+  font-size: 5vw;
+}
+.nav0:hover {
+  color: white;
+}
+
+.nav2 {
+  color: rosybrown;
+  font-weight: 100;
+  font-size: 5vw;
+}
+
+.nav2:hover {
+  color: pink;
+}
