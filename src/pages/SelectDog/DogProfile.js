@@ -6,21 +6,16 @@ const baseURL =
   process.env.MEDIA_URL || "https://targetpractise-3737.restdb.io/media/";
 
 export default function DogProfile({
-  picked,
   pickedForDelete,
   dog,
   onClick,
   selected
 }) {
   return (
-    <div
-      className={
-        selected ? "dog-profile dog-profile--selected" : "dog-profile "
-      }
-    >
+    <div className={ selected ? "dog-profile dog-profile--selected" : "dog-profile " }>
       <img
         id={dog._id}
-        onClick={picked}
+        onClick={() => onClick(dog)}
         src={baseURL + dog.image}
         alt={dog.name}
       />

@@ -10,15 +10,11 @@ import "./SelectDog.css";
 //ToDo
 // CSS Styling responsiv
 
-export default function SelectDog(props) {
-  const [selectedDog, setSelectedDog] = useState({});
-  const [dogs, setDogs] = useState([]);
+export default function SelectDog({selectedDog, setSelectedDog}) {
+  const [dogs, setDogs] = useState();
   const user = useContext(UserContext);
-  const [isLoading, setIsLoading] = useState(true);
-  let dragging = false;
 
   useEffect(() => {
-    setIsLoading(true);
     axios
       .get("/dogs", {
         params: {
@@ -27,83 +23,41 @@ export default function SelectDog(props) {
           }
         }
       })
-      .then(response => {
-        console.log(response.data);
-        setDogs(response.data);
-        setIsLoading(false);
-      })
-      .catch(error => {
-        console.log(error);
-        setIsLoading(false);
-      });
+      .then(response => setDogs(response.data))
+      .catch(error => console.log(error));
   }, [user]);
 
   const confirmDelete = dog => {
-    if (dog) {
-      if (window.confirm(`Are you sure you wish to delete ${dog.name}?`)) {
-        deleteSelectedDog(dog);
-      }
-    } else {
-      alert("No dog selected!");
+    if (window.confirm(`Are you sure you wish to delete ${dog.name}?`)) {
+      axios
+        .delete(`/dogs/${dog._id}`)
+        .then(() => {
+          setDogs(dogs.filter(dogg => dogg !== dog));
+          alert("Successfully deleted!");
+        })
+        .catch(error => console.log(error));
     }
   };
 
-  const deleteSelectedDog = dog => {
-    axios
-      .delete(`/dogs/${dog._id}`)
-      .then(response => {
-        console.log(response);
-        removeDeletedDog(dog);
-        alert("Successfully deleted!");
-      })
-      .catch(error => console.log(error));
-  };
+  const isSelected = dog => selectedDog && dog._id === selectedDog._id;
 
-  const removeDeletedDog = dog => {
-    setDogs(dogs.filter(dogg => dogg !== dog));
-    setSelectedDog();
-  };
-
-  // map -> läuft this.state.profiles durch und sagt quasi "führe für jedes profile die funktion darunter aus mit dem return"
-  // bei map kommt immer ein array raus. undzwar alle elemente die returned worden sind
-  // const profiles = this.state.profiles.map(profile => {
-  //   return profile.image ? (
-  //     <ProfileButton
-  //       key={profile._id}
-  //       onClick={this.profileButtonHandler}
-  //       profilePicture={
-  //         "https://targetpractise-3737.restdb.io/media/" + profile.image
-  //       }
-  //     />
-  //   ) : null;
-  // });
-
-  return isLoading ? (
-    <Spinner />
-  ) : (
+  return dogs ? (
     <div className="dog-selection">
       <Navigation />
       <div className="ProfileHeading">
         <h1>Pick a Dog</h1>
       </div>
       <div className="Wrapper">
-        {dogs.map(dog => {
-          return (
+        {dogs.map(dog => <Link key={dog._id} to="/">
             <DogProfile
               key={dog._id}
               dog={dog}
-              pickedForDelete={dog => {
-                console.log(dog);
-                setSelectedDog(dog);
-                confirmDelete(dog);
-              }}
-              picked={() => {
-                if (!dragging) props.history.push("/");
-              }}
-              selected={dog === selectedDog}
-            />
-          );
-        })}
+              onClick={setSelectedDog}
+              pickedForDelete={dog => confirmDelete(dog)}
+              selected={isSelected(dog)}
+              />
+          </Link>
+        )}
         <Link to="/createDog">
           <div className="profile">
             <div className="plus">
@@ -113,5 +67,7 @@ export default function SelectDog(props) {
         </Link>
       </div>
     </div>
+  ) : (
+    <Spinner />
   );
 }

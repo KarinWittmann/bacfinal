@@ -20,7 +20,7 @@ class Navigation extends React.Component {
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link as={NavLink} className="nav2" to="/Scores">
+            <Nav.Link as={NavLink} className="nav2" to="/scores">
               Scores
             </Nav.Link>
           </Nav.Item>
