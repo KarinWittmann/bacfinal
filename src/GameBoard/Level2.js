@@ -85,11 +85,13 @@ export default function Level2() {
     setTimeout(() => setClicked(element.default), 1000);
   };
 
+  const exitButtonHandler = () => {};
   return (
     <div>
       <GameBoard
         style={clicked}
         boardClicked={() => clickedhandler(element.board)}
+        exitButtonClicked={exitButtonHandler}
       />
       <Target
         position={{ x: "50%", y: "50%" }}

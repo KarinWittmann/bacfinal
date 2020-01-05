@@ -56,7 +56,7 @@ function Level1(props) {
 
       if (points === 3) {
         alert("level abgeschlossen");
-        // TODO spinner andrehen
+
         exitLevel();
       } else {
         console.log(selectedElement);
