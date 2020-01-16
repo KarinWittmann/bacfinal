@@ -8,7 +8,8 @@ class Slider extends Component {
     images: [
       require("../assets/Level1.jpg"),
       require("../assets/Level2.jpg"),
-      require("../assets/Level3.jpg")
+      require("../assets/Level3.jpg"),
+      require("../assets/wenzi.JPG")
       // "https://s3.us-east-2.amazonaws.com/dzuz14/thumbnails/tree-of-life.jpg"
     ],
     currentIndex: 0,

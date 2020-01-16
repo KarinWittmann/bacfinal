@@ -1,9 +1,9 @@
 .navbar {
   background-color: #443c3c;
-  line-height: 2rem;
+  line-height: 3rem;
   overflow: hidden;
   width: 100%;
-  border: 1px solid transparent;
+  border: 1rem solid transparent;
 }
 
 .nav0 {
@@ -11,7 +11,7 @@
   text-align: right;
   font-weight: 100;
   text-align: right;
-  font-size: 5vw;
+  font-size: 2rem;
 }
 .nav0:hover {
   color: white;
@@ -20,7 +20,7 @@
 .nav2 {
   color: rosybrown;
   font-weight: 100;
-  font-size: 5vw;
+  font-size: 2rem;
 }
 
 .nav2:hover {

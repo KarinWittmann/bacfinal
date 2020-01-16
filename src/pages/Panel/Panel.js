@@ -3,7 +3,7 @@ import Slider from "../../Slider/Slider";
 import Description from "../../Description/Description";
 import "./Panel.css";
 import WithNavbar from "../../HOC/withNavbar";
-import descriptions from './descriptions';
+import descriptions from "./descriptions";
 
 const Panel = props => {
   const [current, setCurrent] = useState(0);
@@ -24,7 +24,7 @@ const Panel = props => {
    */
   const rightClickedHandler = () => {
     let currentIndex = current + 1;
-    if (currentIndex > 2) {
+    if (currentIndex > 3) {
       setCurrent(0);
     } else {
       setCurrent(currentIndex);

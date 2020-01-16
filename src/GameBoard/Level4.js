@@ -1,9 +1,8 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import GameBoard from "./GameBoard";
 import Target from "./Target/Target";
 import "./level.css";
-
-//// TODO - exit Button
 
 const element = {
   target: "gameboard-target",
@@ -19,18 +18,28 @@ const hasSmallScreen = () =>
 const calculateSize = () =>
   hasSmallScreen() ? { width: 100, height: 100 } : { width: 200, height: 200 };
 
-export default function Level4() {
+export default function Level4({ onSave }) {
   const targetSize = calculateSize();
   const [clicked, setClicked] = useState(element.default);
   const [targetPosition, setTargetPosition] = useState(
     randomizePosition(targetSize)
   );
+  const [exit, setExit] = useState();
+  const [points, setPoints] = useState(0);
 
   const clickedhandler = selectedElement => {
     setTargetPosition(randomizePosition(targetSize));
     setClicked(selectedElement);
+    if (selectedElement === element.target) {
+      setPoints(points + 1);
+    }
     setTimeout(() => setClicked(element.default), 1000);
     animate();
+  };
+
+  const onExit = () => {
+    onSave(points);
+    setExit(true);
   };
 
   const animate = () => {
@@ -38,11 +47,14 @@ export default function Level4() {
     setTargetPosition(randomizePosition(targetSize));
   };
 
-  return (
+  return exit ? (
+    <Redirect to="/" />
+  ) : (
     <div>
       <GameBoard
         style={clicked}
         boardClicked={() => clickedhandler(element.board)}
+        onExit={onExit}
       />
       <Target
         position={targetPosition}
