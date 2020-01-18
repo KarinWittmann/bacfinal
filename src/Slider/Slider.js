@@ -5,13 +5,7 @@ import { Link } from "react-router-dom";
 
 class Slider extends Component {
   state = {
-    images: [
-      require("../assets/Level1.jpg"),
-      require("../assets/Level2.jpg"),
-      require("../assets/Level3.jpg"),
-      require("../assets/wenzi.JPG")
-      // "https://s3.us-east-2.amazonaws.com/dzuz14/thumbnails/tree-of-life.jpg"
-    ],
+    images: ["Level1.jpg", "Level2.jpg", "Level3.jpg", "wenzi.jpg"],
     currentIndex: 0,
     translateValue: 0
   };
@@ -77,7 +71,7 @@ class Slider extends Component {
 const Slide = ({ image, levelId }) => {
   const level = "/level" + levelId;
   const styles = {
-    backgroundImage: `url(${image})`,
+    backgroundImage: `url(/${image})`,
     backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "50% 60%"

@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import GameBoard from "./GameBoard";
 import Target from "./Target/Target";
 import { Redirect } from "react-router-dom";
+import { scoresAPI } from "../services";
+import Context from "../context";
 import "./level.css";
 
 const element = {
@@ -10,13 +12,15 @@ const element = {
   default: "gameboard"
 };
 
-export default function Level2({ onSave }) {
+export default function Level2() {
+  const dog = useContext(Context).dog;
   const [clicked, setClicked] = useState(element.default);
-  const [points, setPoints] = useState(0);
+  const [hits, setHits] = useState(0);
+  const [fails, setFails] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const [pictureSize, setPictureSize] = useState({ width: 200, height: 200 });
-  const [exit, setExit] = useState();
+  const [redirect, setRedirect] = useState();
   
   useEffect(() => {
     const handleResize = () => {
@@ -34,22 +38,17 @@ export default function Level2({ onSave }) {
 
 
   const clickedhandler = selectedElement => {
-    console.log(selectedElement);
     setClicked(selectedElement);
     setTimeout(() => setClicked(element.default), 1000);
-    if (selectedElement === element.target) {
-      setPoints(points +1);
-    }
+    selectedElement === element.target ? setHits(hits +1) : setFails(fails +1);
   };
 
   const onExit = () => {
-    onSave(points);
-    setExit(true);
+    scoresAPI.save({dog, hits, fails, "level":2});
+    setRedirect(true);
   }
 
-  return exit ? (
-    <Redirect to="/" />
-  ) : (
+  return redirect ? <Redirect to="/" /> : (
     <div>
       <GameBoard
         style={clicked}

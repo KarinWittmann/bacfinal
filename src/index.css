@@ -8,11 +8,23 @@ body,
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
   margin: 0 !important;
+  background-color: rosybrown;
 }
 
-.root {
-}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+h1 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: 100;
+  font-size: 50pt;
+  color: white;
+  text-shadow: 1px 1px 3px black;
+}
+
+a {
+  text-decoration: none;
 }

@@ -17,4 +17,9 @@ instance.interceptors.request.use(request => {
   return request;
 })
 
+instance.interceptors.response.use(request => {
+  console.log(request);
+  return request;
+})
+
 export default instance;

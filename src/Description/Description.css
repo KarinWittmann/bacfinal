@@ -2,15 +2,15 @@
   text-align: center;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
-  background: #dfdfdf;
+  /* padding: 2rem; */
+  background: linear-gradient(#acaaaa, white);
 }
 .Description h1 {
   font-size: 10vw;
 }
 
 .DescriptionBody {
-  margin-top: 1rem 0s;
+  /* margin-top: 1rem 0s; */
   font-size: 1.5rem;
   font-weight: 200;
   text-align: center;

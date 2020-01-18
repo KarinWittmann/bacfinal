@@ -1,0 +1,11 @@
+export const HOME = "/";
+export const GAMES = "/games"
+export const LEVEL1 = "/level1";
+export const LEVEL2 = "/level2";
+export const LEVEL3 = "/level3";
+export const LEVEL4 = "/level4";
+export const SELECT_DOG = "/selectdog";
+export const CREATE_DOG = "/createdog";
+export const SCORES = "/scores";
+export const LOGIN = "/login";
+export const REGISTER = "/register";

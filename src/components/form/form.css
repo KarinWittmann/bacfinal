@@ -1,0 +1,18 @@
+.form {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  padding: 80px 0;
+  min-height: 400px;
+  text-align: center;
+  border-radius: 1rem;
+  border: solid;
+  width: 70%;
+  min-width: 400px;
+  max-width: 1000px;
+  background-image: url("/Log.PNG");
+  background-repeat: no-repeat;
+}

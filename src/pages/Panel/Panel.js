@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Slider from "../../Slider/Slider";
 import Description from "../../Description/Description";
-import "./Panel.css";
-import WithNavbar from "../../HOC/withNavbar";
 import descriptions from "./descriptions";
+import "./Panel.css";
 
-const Panel = props => {
+export default function Panel() {
   const [current, setCurrent] = useState(0);
 
   /**
@@ -43,5 +42,3 @@ const Panel = props => {
     </div>
   );
 };
-
-export default WithNavbar(Panel);

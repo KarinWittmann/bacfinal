@@ -18,7 +18,7 @@ export default function Target({
       }}
     >
       <img
-        src={require("../../assets/targe.png")}
+        src={process.env.PUBLIC_URL + "/targe.png"}
         className="target_image"
         alt=""
       />

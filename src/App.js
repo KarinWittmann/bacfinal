@@ -1,51 +1,48 @@
 import React, { useState } from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import Login from "./Login/Login";
+import { Route, Switch, Redirect } from "react-router-dom";
+import Login from "./pages/Login/Login";
+import Register from './pages/Register/Register';
 import Level1 from "./GameBoard/Level1";
 import Level2 from "./GameBoard/Level2";
 import Level3 from "./GameBoard/Level3";
 import Level4 from "./GameBoard/Level4";
-import Panel from "./pages/Panel/Panel";
+import Games from "./pages/Panel/Panel";
 import CreateDog from "./pages/CreateDog/CreateDog";
 import SelectDog from "./pages/SelectDog/SelectDog";
 import Scores from "./pages/Scores/Scores";
-import { UserProvider } from "./context/user";
-import axios from './services/axios';
-import "./App.css";
+import { ContextProvider } from "./context";
+import { HOME, GAMES, LEVEL1, LEVEL2, LEVEL3, LEVEL4, CREATE_DOG, SELECT_DOG, SCORES, LOGIN, REGISTER} from './config/routes';
+import Header from './components/header/header';
 
 export default function App() {
   const [user, setUser] = useState();
   const [dog, setDog] = useState();
 
-  const saveScore = ({level, points}) => {
-    axios.post("/scores", {
-        dog,
-        level,
-        points,
-        date: Date.now()
-      })
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
-  }
-
-  return user ? (
-    <div className="App">
-      <UserProvider value={user}>
-          <BrowserRouter>
-            <Switch>
-              <Route exact path="/" component={Panel} />
-              <Route path="/level1" render={props => dog ? <Level1 {...props} onSave={points => saveScore({level:1, points})} /> : <Redirect to="/selectdog" />} />
-              <Route path="/level2" render={props => dog ? <Level2 {...props} onSave={points => saveScore({level:2, points})} /> : <Redirect to="/selectdog" />} />
-              <Route path="/level3" render={props => dog ? <Level3 {...props} onSave={points => saveScore({level:3, points})} /> : <Redirect to="/selectdog" />} />
-              <Route path="/level4" render={props => dog ? <Level4 {...props} onSave={points => saveScore({level:4, points})} /> : <Redirect to="/selectdog" />} />
-              <Route path="/selectdog" render={props => <SelectDog {...props} selectedDog={dog} setSelectedDog={setDog} />} />
-              <Route path="/createdog" component={CreateDog} />
-              <Route path="/scores" render={props => dog ? <Scores {...props} dog={dog} /> : <Redirect to="/selectdog" />} />
-            </Switch>
-          </BrowserRouter>
-      </UserProvider>
+  const withHeader = page => <Header onLogout={() => setUser()}>{page}</Header>;
+  const whenDogIsSelected = page => dog ? page : <Redirect to="/selectdog" />
+  const renderAuth = () => (
+    <div>
+      <Switch>
+        <Route path={[HOME, LOGIN]} exact render={props => withHeader(<Login {...props} onLogin={setUser} />)} />
+        <Route path={REGISTER} exact render={props => withHeader(<Register {...props} onRegister={setUser} />)} />
+      </Switch>
     </div>
-  ) : (
-    <Login onLogin={user => setUser(user)} />
   );
+  const renderApp = () => (
+    <div>
+      <ContextProvider value={{user, dog}}>
+        <Switch>
+          <Route path={[HOME, GAMES]} exact render={props => whenDogIsSelected(withHeader(<Games {...props} />))} />
+          <Route path={SCORES} exact render={props => whenDogIsSelected(withHeader(<Scores {...props} />))} />
+          <Route path={LEVEL1} exact render={props => whenDogIsSelected(<Level1 {...props} />)} />
+          <Route path={LEVEL2} exact render={props => whenDogIsSelected(<Level2 {...props} />)} />
+          <Route path={LEVEL3} exact render={props => whenDogIsSelected(<Level3 {...props} />)} />
+          <Route path={LEVEL4} exact render={props => whenDogIsSelected(<Level4 {...props} />)} />
+          <Route path={SELECT_DOG} exact render={props => withHeader(<SelectDog {...props} setSelectedDog={setDog} />)} />
+          <Route path={CREATE_DOG} exact render={props => withHeader(<CreateDog {...props} />)} />
+        </Switch>
+      </ContextProvider>
+    </div>
+  );
+  return user ? renderApp() : renderAuth();
 }

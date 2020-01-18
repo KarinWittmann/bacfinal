@@ -1,65 +1,67 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
-import axios from "../../services/axios";
 import Card from "../../components/cards/card";
 import FlexContainer from "../../components/containers/flex-container";
 import Spinner from "../../UI/Spinner/Spinner";
-import Navigation from "../../Navigation/Navigation";
+import { HOME } from "../../config/routes";
+import { LinkButton } from "../../components/buttons/buttons";
+import { scoresAPI } from "../../services/services";
+import Context from "../../context/context";
 import "./Scores.css";
-import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import Chart from "../../components/charts/charts";
+import Cardslide from "../../components/cardslide/cardslide";
 
 const DATE_FORMAT = "DD.MM.YYYY HH:mm";
 
-export default function Scores({ dog }) {
+export default function Scores() {
+  const dog = useContext(Context).dog;
   const [scores, setScores] = useState();
 
   useEffect(() => {
-    axios
-      .get("/scores", {
-        params: {
-          q: {
-            dog: {
-              _id: dog._id
-            }
-          }
-        }
-      })
-      .then(response => {
-        console.log(response);
-        setScores(response.data);
-      })
-      .catch(error => console.log(error));
+    scoresAPI.getScores(dog).then(setScores);
   }, [dog]);
 
-  return scores ? (
+  const renderScores = () => (
     <div className="Panel">
-      <header>
-        <Navigation />
-      </header>
       <h1 className="text-center">Scores for {dog.name}</h1>
+
       <FlexContainer>
-        {scores.length > 0 ? (
-          scores.map(score => (
+        {scores.map(score => (
+          <Cardslide>
             <Card
               key={score._id}
               title={moment(score.date).format(DATE_FORMAT)}
             >
               <p>level: {score.level}</p>
-              <p>points: {score.points}</p>
+              <p>hits: {score.hits}</p>
+              <p>fails: {score.fails}</p>
             </Card>
-          ))
-        ) : (
-          <div>
-            <p class="text-center">No scores yet</p>
-            <Button variant="primary" as={Link} to="/">
-              Start a game
-            </Button>
-          </div>
-        )}
+          </Cardslide>
+        ))}
       </FlexContainer>
+
+      <Chart
+        title={"Level 1"}
+        scores={scores.filter(score => score.level === 1)}
+      />
+      <Chart
+        title={"Level 2"}
+        scores={scores.filter(score => score.level === 2)}
+      />
+      <Chart
+        title={"Level 3"}
+        scores={scores.filter(score => score.level === 3)}
+      />
     </div>
-  ) : (
-    <Spinner />
   );
+
+  const renderNoScores = () => (
+    <div className="Panel">
+      <h1 className="text-center">No scores yet for {dog.name}</h1>
+      <LinkButton to={HOME} label={"start a game"} />
+    </div>
+  );
+
+  const render = () => (scores.length > 0 ? renderScores() : renderNoScores());
+  return scores ? render() : <Spinner />;
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import './flex-container.css';
 
-export default function FlexContainer({children}) {
-
-  return <div className="flex-container">{children}</div>;
+export default function FlexContainer({children, className="", ...props}) {
+  return <div className={`flex-container ${className}`} {...props}>{children}</div>;
 }

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import GameBoard from "./GameBoard";
 import { Redirect } from "react-router-dom";
+import { scoresAPI } from "../services/services";
+import { HOME } from "../config/routes";
 import "./level.css";
-
-//// TODO - exit Button
+import Context from "../context";
 
 const element = {
   target: "gameboard-target",
@@ -11,20 +12,21 @@ const element = {
   default: "gameboard"
 };
 
-export default function Level1({ onSave }) {
+export default function Level1() {
+  const dog = useContext(Context).dog;
   const [clicked, setClicked] = useState(element.default);
-  const [points, setPoints] = useState(0);
+  const [hits, setHits] = useState(0);
   const [clickEnabled, setClickEnabled] = useState(true);
-  const [exit, setExit] = useState(false);
+  const [redirect, setRedirect] = useState();
 
   // TODO schnell hintereinander aufs gameboard klicken bugged noch
   const clickedhandler = selectedElement => {
     if (clickEnabled === true) {
       setClickEnabled(false);
-      setPoints(points + 1);
+      setHits(hits + 1);
       console.log(selectedElement);
       setClicked(selectedElement);
-      if (points === 5) {
+      if (hits === 5) {
         alert("Attention your dog is getting fat!");
       }
       setTimeout(() => {
@@ -35,13 +37,11 @@ export default function Level1({ onSave }) {
   };
 
   const onExit = () => {
-    onSave(points);
-    setExit(true);
+    scoresAPI.save({dog, hits, fails:0, level:1 });
+    setRedirect(true);
   }
 
-  return exit ? (
-    <Redirect to="/" />
-  ) : (
+  return redirect ? <Redirect to={HOME} /> : (
     <GameBoard
       style={clicked}
       boardClicked={() => clickedhandler(element.target)}

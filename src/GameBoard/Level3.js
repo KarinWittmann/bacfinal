@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Redirect} from 'react-router-dom';
 import GameBoard from "./GameBoard";
 import Target from "./Target/Target";
 import "./level.css";
+import { scoresAPI } from "../services/services";
+import Context from "../context/context";
 
 const element = {
   target: "gameboard-target",
@@ -18,30 +20,28 @@ const hasSmallScreen = () =>
 const calculateSize = () =>
   hasSmallScreen() ? { width: 100, height: 100 } : { width: 200, height: 200 };
 
-export default function Level3({ onSave }) {
+export default function Level3() {
+  const dog = useContext(Context).dog;
   const targetSize = calculateSize();
   const [clicked, setClicked] = useState(element.default);
   const [targetPosition, setTargetPosition] = useState(randomizePosition(targetSize));
-  const [exit, setExit] = useState();
-  const [points, setPoints] = useState(0);
+  const [hits, setHits] = useState(0);
+  const [fails, setFails] = useState(0);
+  const [redirect, setRedirect] = useState();
 
   const clickedhandler = selectedElement => {
     setTargetPosition(randomizePosition(targetSize));
     setClicked(selectedElement);
-    if (selectedElement === element.target) {
-      setPoints(points +1);
-    }
+    selectedElement === element.target ? setHits(hits +1) : setFails(fails +1);
     setTimeout(() => setClicked(element.default), 1000);
   };
 
   const onExit = () => {
-    onSave(points);
-    setExit(true);
+    scoresAPI.save({dog, hits, fails, "level":3 });
+    setRedirect(true);
   }
 
-  return exit ? (
-    <Redirect to="/" />  
-  ) : (
+  return redirect ? <Redirect to="/" /> : (
     <div>
       <GameBoard
         style={clicked}
