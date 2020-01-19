@@ -1,12 +1,11 @@
-import React from 'react';
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
-import moment from 'moment';
-
+import React from "react";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import moment from "moment";
+import "./charts.css";
 const DATE_FORMAT = "DD.MM.YYYY HH:mm";
 
-
-export default function Chart({title, scores}) {
+export default function Chart({ title, scores }) {
   const options = {
     title: {
       text: title
@@ -29,14 +28,11 @@ export default function Chart({title, scores}) {
         }))
       }
     ]
-  }
-  
+  };
+
   return (
-    <div>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-      />
+    <div className="charts">
+      <HighchartsReact highcharts={Highcharts} options={options} />
     </div>
   );
 }

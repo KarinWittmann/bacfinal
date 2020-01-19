@@ -8,6 +8,9 @@ h3 {
   position: relative;
   text-align: center;
 }
+.slick-slide {
+  margin: 1rem 0 !important;
+}
 .variable-width .slick-slide p {
   background: blue;
   height: 100px;
@@ -43,6 +46,7 @@ h3 {
 }
 .slick-slider {
   margin: 30px auto 50px;
+  width: 90%;
 }
 .slick-dots {
   margin-left: 0;
@@ -85,6 +89,12 @@ h3 {
 .slick-arrow {
   background-color: grey;
   /* color: black; */
+}
+.slick-arrow.slick-next::before {
+  font-size: 2rem !important;
+}
+.slick-arrow.slick-prev::before {
+  font-size: 2rem !important;
 }
 .slick-arrow:hover {
   background-color: grey;
