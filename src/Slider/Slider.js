@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 class Slider extends Component {
   state = {
-    images: ["Level1.jpg", "Level2.jpg", "Level3.jpg", "wenzi.jpg"],
+    images: ["Level1.jpg", "Level2.jpg", "Level3.jpg", "bug.png"],
     currentIndex: 0,
     translateValue: 0
   };

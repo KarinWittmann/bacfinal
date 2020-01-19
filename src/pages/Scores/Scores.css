@@ -5,3 +5,14 @@
   height: 100%;
   background-color: rosybrown;
 }
+.linkbtn {
+  width: 40%;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+.text-center {
+  text-align: center;
+  margin-bottom: 10%;
+  margin-top: 10%;
+}

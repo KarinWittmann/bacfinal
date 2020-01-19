@@ -9,5 +9,5 @@
   cursor: pointer;
   font-size: 18px;
   transition-duration: 0.25s;
-  box-shadow: 6px 6px 10px hsla(300,15%,25%,0.3) inset;
+  box-shadow: 6px 6px 10px hsla(300, 15%, 25%, 0.3) inset;
 }

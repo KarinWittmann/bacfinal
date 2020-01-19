@@ -51,7 +51,7 @@ const Scores = () => {
   const renderNoScores = (
     <div className="Panel">
       <h1 className="text-center">No scores yet for {dog.name}</h1>
-      <LinkButton to={HOME} label={"start a game"} />
+      <LinkButton to={HOME} label={"start a game"} className="linkbtn" />
     </div>
   );
 
