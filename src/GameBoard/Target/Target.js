@@ -14,7 +14,8 @@ export default function Target({
         top: position.y,
         left: position.x,
         width: size.width,
-        height: size.height
+        height: size.height,
+        cursor: 'pointer'
       }}
     >
       <img

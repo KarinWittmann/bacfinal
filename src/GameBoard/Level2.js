@@ -21,7 +21,7 @@ export default function Level2() {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const [pictureSize, setPictureSize] = useState({ width: 200, height: 200 });
   const [redirect, setRedirect] = useState();
-  
+
   useEffect(() => {
     const handleResize = () => {
       console.log("Resized to: ", window.innerWidth, window.innerHeight);
@@ -31,20 +31,21 @@ export default function Level2() {
     };
     const calculateSize = () => hasSmallScreen() ? { width: 100, height: 100 } : { width: 200, height: 200 };
     const hasSmallScreen = () => windowWidth <= 500 || windowHeight <= 500;
-    
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [windowWidth, windowHeight]);
 
 
   const clickedhandler = selectedElement => {
+    console.log(selectedElement)
     setClicked(selectedElement);
     setTimeout(() => setClicked(element.default), 1000);
-    selectedElement === element.target ? setHits(hits +1) : setFails(fails +1);
+    selectedElement === element.target ? setHits(hits + 1) : setFails(fails + 1);
   };
 
   const onExit = () => {
-    scoresAPI.save({dog, hits, fails, "level":2});
+    scoresAPI.save({ dog, hits, fails, "level": 2 });
     setRedirect(true);
   }
 
