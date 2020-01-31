@@ -6,7 +6,7 @@ import "./GameBoard.css";
 
 export default function GameBoard({ onExit, boardClicked, style }) {
   return (
-    <div onClick={boardClicked} className={style}>
+    <div onTouchStart={boardClicked} className={style}>
       <IoIosCloseCircle
         onClick={onExit}
         style={{ fontSize: "2rem" }}

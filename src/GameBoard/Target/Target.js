@@ -9,7 +9,7 @@ export default function Target({
   return (
     <div
       className="target"
-      onClick={clicked}
+      onTouchStart={clicked}
       style={{
         top: position.y,
         left: position.x,
